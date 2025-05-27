@@ -4,45 +4,67 @@ import viteLogo from '/vite.svg'
 import assets from './assets/grad.jpg'
 
 function App() {
+  const [navOpen, setNavOpen] = useState(false);
+
+  const handleNavClick = (id) => {
+    setNavOpen(false);
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <div  id="home" className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-indigo-900 via-slate-800 to-blue-900 px-4 pt-28">
+    <div id="home" className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-indigo-900 via-slate-800 to-blue-900 px-4 pt-28">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 w-full flex justify-center backdrop-blur-md bg-gray-900/80 shadow-lg">
-  <nav className="w-full max-w-5xl flex justify-between items-center px-8 py-4 rounded-b-xl">
-    {/* Logo or Brand */}
-    <div className="flex items-center space-x-3">
-      <img src={reactLogo} alt="Logo" className="w-10 h-10" />
-      <span className="text-white text-3xl font-extrabold tracking-wide">Wilmar<span className="text-blue-400">Dev</span></span>
-    </div>
-    {/* Navigation Links */}
-    <ul className="flex space-x-8">
-      <li>
-        <a
-          href="#home"
-          className="text-slate-200 hover:text-blue-400 transition-colors text-lg font-medium px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          Home
-        </a>
-      </li>
-      <li>
-        <a
-          href="#skills"
-          className="text-slate-200 hover:text-blue-400 transition-colors text-lg font-medium px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          TechStack
-        </a>
-      </li>
-      <li>
-        <a
-          href="#contact"
-          className="text-slate-200 hover:text-blue-400 transition-colors text-lg font-medium px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          Contact
-        </a>
-      </li>
-    </ul>
-  </nav>
-</header>
+        <nav className="w-full max-w-5xl flex justify-between items-center px-4 sm:px-8 py-4 rounded-b-xl">
+          {/* Logo or Brand */}
+          <div className="flex items-center space-x-3">
+            <img src={reactLogo} alt="Logo" className="w-10 h-10" />
+            <span className="text-white text-2xl sm:text-3xl font-extrabold tracking-wide">Wilmar<span className="text-blue-400">Dev</span></span>
+          </div>
+          {/* Hamburger */}
+          <button
+            className="sm:hidden flex flex-col justify-center items-center w-10 h-10 rounded focus:outline-none"
+            onClick={() => setNavOpen(!navOpen)}
+            aria-label="Toggle navigation"
+          >
+            <span className={`block h-0.5 w-6 bg-white mb-1 transition-all ${navOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
+            <span className={`block h-0.5 w-6 bg-white mb-1 transition-all ${navOpen ? 'opacity-0' : ''}`}></span>
+            <span className={`block h-0.5 w-6 bg-white transition-all ${navOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
+          </button>
+          {/* Navigation Links */}
+          <ul className={`flex-col sm:flex-row sm:flex space-y-4 sm:space-y-0 sm:space-x-8 absolute sm:static top-16 left-0 w-full sm:w-auto bg-gray-900/95 sm:bg-transparent px-6 sm:px-0 py-4 sm:py-0 rounded-b-xl shadow-lg sm:shadow-none transition-all duration-200 z-40 ${navOpen ? 'flex' : 'hidden'}`}>
+            <li>
+              <a
+                href="#home"
+                onClick={e => { e.preventDefault(); handleNavClick('home'); }}
+                className="block text-blue-400 bg-white/10 shadow px-4 py-2 rounded-lg text-lg font-semibold transition-all duration-200 border border-blue-400 hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                href="#skills"
+                onClick={e => { e.preventDefault(); handleNavClick('skills'); }}
+                className="block text-slate-200 hover:text-blue-400 transition-colors text-lg font-medium px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                TechStack
+              </a>
+            </li>
+            <li>
+              <a
+                href="#contact"
+                onClick={e => { e.preventDefault(); handleNavClick('contact'); }}
+                className="block text-slate-200 hover:text-blue-400 transition-colors text-lg font-medium px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+   
 
       {/* Home Section */}
       <section className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 sm:space-x-16 mb-6 w-full mt-16">
